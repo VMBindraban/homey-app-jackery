@@ -1,0 +1,15 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Grid import power"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "W"
+  },
+  "decimals": 0,
+  "icon": "/assets/capabilities/grid_in.svg",
+  "uiComponent": "sensor",
+  "insights": true
+}

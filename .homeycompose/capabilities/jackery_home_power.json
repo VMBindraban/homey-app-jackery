@@ -1,0 +1,15 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Home power"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "W"
+  },
+  "decimals": 0,
+  "icon": "/assets/capabilities/home.svg",
+  "uiComponent": "sensor",
+  "insights": true
+}

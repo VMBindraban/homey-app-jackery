@@ -1,0 +1,128 @@
+{
+  "name": {
+    "en": "SolarVault"
+  },
+  "class": "battery",
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "capabilities": [
+    "measure_battery",
+    "measure_power",
+    "meter_power",
+    "meter_power.charged",
+    "meter_power.discharged",
+    "onoff",
+    "jackery_chg_limit",
+    "jackery_pv_power",
+    "jackery_max_output",
+    "jackery_grid_out",
+    "jackery_home_power",
+    "jackery_grid_in",
+    "jackery_smart_power",
+    "jackery_work_mode",
+    "jackery_smart_conn",
+    "jackery_bat_temp",
+    "jackery_max_grid",
+    "jackery_bat_in",
+    "jackery_bat_out",
+    "jackery_dis_limit",
+    "jackery_follow_meter",
+    "jackery_default_power"
+  ],
+  "energy": {
+    "homeBattery": true,
+    "meterPowerImportedCapability": "meter_power.charged",
+    "meterPowerExportedCapability": "meter_power.discharged"
+  },
+  "pair": [
+    {
+      "id": "start"
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "EPS output"
+      },
+      "uiQuickAction": false
+    },
+    "meter_power.charged": {
+      "title": {
+        "en": "Battery charged energy"
+      }
+    },
+    "meter_power.discharged": {
+      "title": {
+        "en": "Battery discharged energy"
+      }
+    }
+  },
+  "images": {
+    "small": "/drivers/jackery/assets/images/small.png",
+    "large": "/drivers/jackery/assets/images/large.png",
+    "xlarge": "/drivers/jackery/assets/images/xlarge.png"
+  },
+  "settings": [
+    {
+      "id": "serial",
+      "type": "label",
+      "label": {
+        "en": "Serial number"
+      },
+      "value": ""
+    },
+    {
+      "id": "token",
+      "type": "password",
+      "label": {
+        "en": "Jackery token"
+      },
+      "hint": {
+        "en": "Device token from the Jackery app. Unique per SolarVault."
+      },
+      "value": ""
+    },
+    {
+      "id": "poll_interval",
+      "type": "number",
+      "label": {
+        "en": "Poll interval"
+      },
+      "hint": {
+        "en": "How often to request status from the SolarVault. Lower is faster but more MQTT traffic."
+      },
+      "value": 5,
+      "min": 3,
+      "max": 60,
+      "units": {
+        "en": "s"
+      }
+    },
+    {
+      "id": "debug",
+      "type": "checkbox",
+      "label": {
+        "en": "Debug logging"
+      },
+      "hint": {
+        "en": "Log every MQTT message to the app log. Only for troubleshooting."
+      },
+      "value": false
+    }
+  ]
+}

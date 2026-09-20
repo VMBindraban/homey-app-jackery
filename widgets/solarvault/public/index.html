@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <style>
+      body { margin: 0; }
+      .wrap { padding: var(--homey-su-3); display: flex; flex-direction: column; gap: var(--homey-su-2); }
+      .top { display: flex; align-items: baseline; justify-content: space-between; }
+      .soc { font-size: 32px; font-weight: 600; line-height: 1; }
+      .mode { opacity: .7; }
+      .bar { height: 8px; border-radius: 4px; background: var(--homey-color-mono-200); overflow: hidden; }
+      .bar > div { height: 100%; background: var(--homey-color-green-500); transition: width .4s; }
+      .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--homey-su-2); }
+      .cell { text-align: center; }
+      .cell .v { font-weight: 600; }
+      .cell .l { opacity: .6; font-size: 11px; }
+      .err { opacity: .7; text-align: center; padding: var(--homey-su-4); }
+    </style>
+  </head>
+  <body class="homey-widget">
+    <div class="wrap" id="wrap">
+      <div class="top">
+        <div class="soc homey-text-regular" id="soc">--%</div>
+        <div class="mode homey-text-small" id="mode"></div>
+      </div>
+      <div class="bar"><div id="bar" style="width:0"></div></div>
+      <div class="row homey-text-small">
+        <div class="cell"><div class="v" id="pv">--</div><div class="l">Solar</div></div>
+        <div class="cell"><div class="v" id="home">--</div><div class="l">Home</div></div>
+        <div class="cell"><div class="v" id="grid">--</div><div class="l">Grid</div></div>
+        <div class="cell"><div class="v" id="battery">--</div><div class="l">Battery</div></div>
+      </div>
+    </div>
+    <div class="err homey-text-small" id="err" hidden></div>
+
+    <script type="text/javascript">
+      function onHomeyReady(Homey) {
+        Homey.ready();
+        const settings = Homey.getSettings();
+        const deviceId = settings.device && settings.device.id;
+        const el = id => document.getElementById(id);
+        const watts = v => (v == null ? '--' : Math.round(v) + ' W');
+        const modes = { self_consumption: 'Self-consumption', custom: 'Custom', tariff: 'Tariff', ai: 'AI' };
+
+        function fail(message) {
+          el('wrap').hidden = true;
+          el('err').hidden = false;
+          el('err').textContent = message;
+        }
+
+        function refresh() {
+          if (!deviceId) return fail('Select a SolarVault in the widget settings.');
+          Homey.api('GET', '/state?device=' + encodeURIComponent(deviceId))
+            .then(s => {
+              if (!s.available) return fail(s.name + ' is unavailable');
+              el('wrap').hidden = false;
+              el('err').hidden = true;
+              el('soc').textContent = (s.soc == null ? '--' : Math.round(s.soc)) + '%';
+              el('bar').style.width = (s.soc || 0) + '%';
+              el('mode').textContent = modes[s.mode] || '';
+              el('pv').textContent = watts(s.pv);
+              el('home').textContent = watts(s.home);
+              const grid = (s.gridIn || 0) - (s.gridOut || 0);
+              el('grid').textContent = grid === 0 ? '0 W' : (grid > 0 ? '↓ ' : '↑ ') + Math.round(Math.abs(grid)) + ' W';
+              el('battery').textContent = s.battery == null ? '--' : (s.battery > 0 ? '↓ ' : s.battery < 0 ? '↑ ' : '') + Math.round(Math.abs(s.battery)) + ' W';
+            })
+            .catch(err => fail(err.message || String(err)));
+        }
+
+        refresh();
+        setInterval(refresh, 5000);
+      }
+    </script>
+  </body>
+</html>

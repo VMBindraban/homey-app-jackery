@@ -1,0 +1,15 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Max grid feed"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "W"
+  },
+  "decimals": 0,
+  "icon": "/assets/capabilities/grid_max.svg",
+  "uiComponent": "sensor",
+  "insights": true
+}

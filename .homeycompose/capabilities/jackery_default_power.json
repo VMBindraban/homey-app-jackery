@@ -1,0 +1,15 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Default output power"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "units": {
+    "en": "W"
+  },
+  "decimals": 0,
+  "icon": "/assets/capabilities/bolt.svg",
+  "insights": true
+}

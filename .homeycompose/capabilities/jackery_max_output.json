@@ -1,0 +1,15 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Max output power"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "W"
+  },
+  "decimals": 0,
+  "icon": "/assets/capabilities/bolt.svg",
+  "uiComponent": "sensor",
+  "insights": true
+}

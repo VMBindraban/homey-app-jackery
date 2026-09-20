@@ -1,0 +1,688 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.codedesk.jackery",
+  "version": "1.0.0",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "runtime": "nodejs",
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Jackery"
+  },
+  "description": {
+    "en": "Monitor and control your Jackery SolarVault home battery over MQTT"
+  },
+  "category": [
+    "energy"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "V Bindraban",
+    "email": "homey@bindraban.dev"
+  },
+  "brandColor": "#F47920",
+  "support": "mailto:homey@bindraban.dev",
+  "tags": {
+    "en": [
+      "jackery",
+      "solarvault",
+      "battery",
+      "home battery",
+      "solar",
+      "mqtt",
+      "energy"
+    ]
+  },
+  "source": "https://github.com/VMBindraban/homey-app-jackery",
+  "homepage": "https://github.com/VMBindraban/homey-app-jackery",
+  "bugs": {
+    "url": "https://github.com/VMBindraban/homey-app-jackery/issues"
+  },
+  "flow": {
+    "actions": [
+      {
+        "title": {
+          "en": "Reboot SolarVault"
+        },
+        "titleFormatted": {
+          "en": "Reboot SolarVault"
+        },
+        "hint": {
+          "en": "Restarts the unit. Output is interrupted for about a minute."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=jackery"
+          }
+        ],
+        "id": "reboot"
+      },
+      {
+        "title": {
+          "en": "Send raw MQTT message (developer)"
+        },
+        "titleFormatted": {
+          "en": "Send raw message types [[types]] with body [[body]]"
+        },
+        "hint": {
+          "en": "Developer tool. Sends one message per type (comma separated), 1 second apart, with the JSON body (or empty for null). Enable debug logging on the device to see replies."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=jackery"
+          },
+          {
+            "name": "types",
+            "type": "text",
+            "title": {
+              "en": "Types"
+            },
+            "placeholder": {
+              "en": "3,4,5"
+            }
+          },
+          {
+            "name": "body",
+            "type": "text",
+            "title": {
+              "en": "Body JSON"
+            },
+            "required": false,
+            "placeholder": {
+              "en": "{}"
+            }
+          }
+        ],
+        "id": "send_raw_message"
+      },
+      {
+        "title": {
+          "en": "Set charge limit"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=jackery"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "min": 50,
+            "max": 100,
+            "step": 1,
+            "title": {
+              "en": "Limit (%)"
+            }
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set charge limit to [[limit]]%"
+        },
+        "id": "set_charge_limit"
+      },
+      {
+        "title": {
+          "en": "Set discharge limit"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=jackery"
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "min": 5,
+            "max": 49,
+            "step": 1,
+            "title": {
+              "en": "Limit (%)"
+            }
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set discharge limit to [[limit]]%"
+        },
+        "id": "set_discharge_limit"
+      },
+      {
+        "title": {
+          "en": "Set follow meter"
+        },
+        "titleFormatted": {
+          "en": "Turn follow meter [[state]]"
+        },
+        "hint": {
+          "en": "Custom work mode only."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=jackery"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "title": {
+              "en": "State"
+            },
+            "values": [
+              {
+                "id": "on",
+                "title": {
+                  "en": "On"
+                }
+              },
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "set_follow_meter"
+      },
+      {
+        "title": {
+          "en": "Set maximum output power"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=jackery"
+          },
+          {
+            "name": "power",
+            "type": "number",
+            "min": 0,
+            "max": 2500,
+            "step": 10,
+            "title": {
+              "en": "Power (W)"
+            }
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set maximum output power to [[power]] W"
+        },
+        "id": "set_max_output"
+      },
+      {
+        "title": {
+          "en": "Set work mode"
+        },
+        "titleFormatted": {
+          "en": "Set work mode to [[mode]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=jackery"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "title": {
+              "en": "Mode"
+            },
+            "values": [
+              {
+                "id": "self_consumption",
+                "title": {
+                  "en": "Self-consumption"
+                }
+              },
+              {
+                "id": "custom",
+                "title": {
+                  "en": "Custom"
+                }
+              },
+              {
+                "id": "tariff",
+                "title": {
+                  "en": "Tariff"
+                }
+              },
+              {
+                "id": "ai",
+                "title": {
+                  "en": "AI"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "set_work_mode"
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "SolarVault"
+      },
+      "class": "battery",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "capabilities": [
+        "measure_battery",
+        "measure_power",
+        "meter_power",
+        "meter_power.charged",
+        "meter_power.discharged",
+        "onoff",
+        "jackery_chg_limit",
+        "jackery_pv_power",
+        "jackery_max_output",
+        "jackery_grid_out",
+        "jackery_home_power",
+        "jackery_grid_in",
+        "jackery_smart_power",
+        "jackery_work_mode",
+        "jackery_smart_conn",
+        "jackery_bat_temp",
+        "jackery_max_grid",
+        "jackery_bat_in",
+        "jackery_bat_out",
+        "jackery_dis_limit",
+        "jackery_follow_meter",
+        "jackery_default_power"
+      ],
+      "energy": {
+        "homeBattery": true,
+        "meterPowerImportedCapability": "meter_power.charged",
+        "meterPowerExportedCapability": "meter_power.discharged"
+      },
+      "pair": [
+        {
+          "id": "start"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "EPS output"
+          },
+          "uiQuickAction": false
+        },
+        "meter_power.charged": {
+          "title": {
+            "en": "Battery charged energy"
+          }
+        },
+        "meter_power.discharged": {
+          "title": {
+            "en": "Battery discharged energy"
+          }
+        }
+      },
+      "images": {
+        "small": "/drivers/jackery/assets/images/small.png",
+        "large": "/drivers/jackery/assets/images/large.png",
+        "xlarge": "/drivers/jackery/assets/images/xlarge.png"
+      },
+      "settings": [
+        {
+          "id": "serial",
+          "type": "label",
+          "label": {
+            "en": "Serial number"
+          },
+          "value": ""
+        },
+        {
+          "id": "token",
+          "type": "password",
+          "label": {
+            "en": "Jackery token"
+          },
+          "hint": {
+            "en": "Device token from the Jackery app. Unique per SolarVault."
+          },
+          "value": ""
+        },
+        {
+          "id": "poll_interval",
+          "type": "number",
+          "label": {
+            "en": "Poll interval"
+          },
+          "hint": {
+            "en": "How often to request status from the SolarVault. Lower is faster but more MQTT traffic."
+          },
+          "value": 5,
+          "min": 3,
+          "max": 60,
+          "units": {
+            "en": "s"
+          }
+        },
+        {
+          "id": "debug",
+          "type": "checkbox",
+          "label": {
+            "en": "Debug logging"
+          },
+          "hint": {
+            "en": "Log every MQTT message to the app log. Only for troubleshooting."
+          },
+          "value": false
+        }
+      ],
+      "id": "jackery"
+    }
+  ],
+  "widgets": {
+    "solarvault": {
+      "name": {
+        "en": "SolarVault"
+      },
+      "height": 170,
+      "settings": [
+        {
+          "id": "device",
+          "type": "autocomplete",
+          "title": {
+            "en": "SolarVault"
+          }
+        }
+      ],
+      "api": {
+        "getState": {
+          "method": "GET",
+          "path": "/state"
+        }
+      },
+      "id": "solarvault"
+    }
+  },
+  "capabilities": {
+    "jackery_bat_in": {
+      "type": "number",
+      "title": {
+        "en": "Battery charge power"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "W"
+      },
+      "decimals": 0,
+      "icon": "/assets/capabilities/battery_up.svg",
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "jackery_bat_out": {
+      "type": "number",
+      "title": {
+        "en": "Battery discharge power"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "W"
+      },
+      "decimals": 0,
+      "icon": "/assets/capabilities/battery_down.svg",
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "jackery_bat_temp": {
+      "type": "number",
+      "title": {
+        "en": "Battery temperature"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "°C"
+      },
+      "icon": "/assets/capabilities/thermometer.svg",
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "jackery_chg_limit": {
+      "type": "number",
+      "title": {
+        "en": "Charge limit"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "%"
+      },
+      "min": 0,
+      "max": 100,
+      "icon": "/assets/capabilities/limit_up.svg",
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "jackery_default_power": {
+      "type": "number",
+      "title": {
+        "en": "Default output power"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "units": {
+        "en": "W"
+      },
+      "decimals": 0,
+      "icon": "/assets/capabilities/bolt.svg",
+      "insights": true
+    },
+    "jackery_dis_limit": {
+      "type": "number",
+      "title": {
+        "en": "Discharge limit"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "%"
+      },
+      "min": 0,
+      "max": 100,
+      "icon": "/assets/capabilities/limit_down.svg",
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "jackery_follow_meter": {
+      "type": "boolean",
+      "title": {
+        "en": "Follow meter"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "toggle",
+      "icon": "/assets/capabilities/meter.svg"
+    },
+    "jackery_grid_in": {
+      "type": "number",
+      "title": {
+        "en": "Grid import power"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "W"
+      },
+      "decimals": 0,
+      "icon": "/assets/capabilities/grid_in.svg",
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "jackery_grid_out": {
+      "type": "number",
+      "title": {
+        "en": "Grid export power"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "W"
+      },
+      "decimals": 0,
+      "icon": "/assets/capabilities/grid_out.svg",
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "jackery_home_power": {
+      "type": "number",
+      "title": {
+        "en": "Home power"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "W"
+      },
+      "decimals": 0,
+      "icon": "/assets/capabilities/home.svg",
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "jackery_max_grid": {
+      "type": "number",
+      "title": {
+        "en": "Max grid feed"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "W"
+      },
+      "decimals": 0,
+      "icon": "/assets/capabilities/grid_max.svg",
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "jackery_max_output": {
+      "type": "number",
+      "title": {
+        "en": "Max output power"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "W"
+      },
+      "decimals": 0,
+      "icon": "/assets/capabilities/bolt.svg",
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "jackery_pv_power": {
+      "type": "number",
+      "title": {
+        "en": "Pv power"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "W"
+      },
+      "decimals": 0,
+      "icon": "/assets/capabilities/sun.svg",
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "jackery_smart_conn": {
+      "type": "boolean",
+      "title": {
+        "en": "Smart meter connected"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/capabilities/link.svg",
+      "uiComponent": "sensor",
+      "insights": false
+    },
+    "jackery_smart_power": {
+      "type": "number",
+      "title": {
+        "en": "Smart meter power"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "W"
+      },
+      "decimals": 0,
+      "icon": "/assets/capabilities/meter.svg",
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "jackery_work_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Work mode"
+      },
+      "getable": true,
+      "setable": true,
+      "values": [
+        {
+          "id": "self_consumption",
+          "title": {
+            "en": "Self-consumption"
+          }
+        },
+        {
+          "id": "custom",
+          "title": {
+            "en": "Custom"
+          }
+        },
+        {
+          "id": "tariff",
+          "title": {
+            "en": "Tariff"
+          }
+        },
+        {
+          "id": "ai",
+          "title": {
+            "en": "AI"
+          }
+        }
+      ],
+      "icon": "/assets/capabilities/mode.svg",
+      "uiComponent": "picker"
+    }
+  }
+}

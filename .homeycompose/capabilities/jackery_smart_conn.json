@@ -1,0 +1,11 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Smart meter connected"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/capabilities/link.svg",
+  "uiComponent": "sensor",
+  "insights": false
+}

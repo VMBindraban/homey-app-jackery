@@ -1,0 +1,48 @@
+{
+  "title": {
+    "en": "Set work mode"
+  },
+  "titleFormatted": {
+    "en": "Set work mode to [[mode]]"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=jackery"
+    },
+    {
+      "name": "mode",
+      "type": "dropdown",
+      "title": {
+        "en": "Mode"
+      },
+      "values": [
+        {
+          "id": "self_consumption",
+          "title": {
+            "en": "Self-consumption"
+          }
+        },
+        {
+          "id": "custom",
+          "title": {
+            "en": "Custom"
+          }
+        },
+        {
+          "id": "tariff",
+          "title": {
+            "en": "Tariff"
+          }
+        },
+        {
+          "id": "ai",
+          "title": {
+            "en": "AI"
+          }
+        }
+      ]
+    }
+  ]
+}

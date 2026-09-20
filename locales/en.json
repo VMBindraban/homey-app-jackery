@@ -1,0 +1,6 @@
+{
+  "settings": {
+    "title": "Jackery SolarVault MQTT",
+    "subtitle": "Configure the MQTT broker and Jackery protocol settings."
+  }
+}

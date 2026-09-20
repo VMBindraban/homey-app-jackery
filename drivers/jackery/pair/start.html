@@ -1,0 +1,28 @@
+<header class="homey-header">
+  <h1 class="homey-title">Jackery SolarVault</h1>
+  <p class="homey-subtitle">Enter the serial number of your SolarVault (shown in the Jackery app under device info, and on the label of the unit).</p>
+</header>
+
+<div class="homey-form-group">
+  <label class="homey-form-label" for="serial">SolarVault serial number</label>
+  <input class="homey-form-input" id="serial" type="text" autocomplete="off" placeholder="HS..." />
+</div>
+
+<div class="homey-form-group">
+  <label class="homey-form-label" for="token">Jackery token</label>
+  <input class="homey-form-input" id="token" type="password" autocomplete="new-password" />
+</div>
+
+<button class="homey-button-primary-full" id="next">Next</button>
+
+<script type="text/javascript">
+  document.getElementById('next').addEventListener('click', function() {
+    const serial = document.getElementById('serial').value.trim();
+    const token = document.getElementById('token').value.trim();
+    if (!serial) return Homey.alert('Enter the SolarVault serial number.');
+    if (!token) return Homey.alert('Enter the Jackery token.');
+    Homey.emit('device', { serial, token })
+      .then(function() { Homey.showView('list_devices'); })
+      .catch(function(err) { Homey.alert(err.message || String(err)); });
+  });
+</script>

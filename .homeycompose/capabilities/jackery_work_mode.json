@@ -1,0 +1,36 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Work mode"
+  },
+  "getable": true,
+  "setable": true,
+  "values": [
+    {
+      "id": "self_consumption",
+      "title": {
+        "en": "Self-consumption"
+      }
+    },
+    {
+      "id": "custom",
+      "title": {
+        "en": "Custom"
+      }
+    },
+    {
+      "id": "tariff",
+      "title": {
+        "en": "Tariff"
+      }
+    },
+    {
+      "id": "ai",
+      "title": {
+        "en": "AI"
+      }
+    }
+  ],
+  "icon": "/assets/capabilities/mode.svg",
+  "uiComponent": "picker"
+}

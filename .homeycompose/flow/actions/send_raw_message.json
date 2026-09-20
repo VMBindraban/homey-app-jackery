@@ -1,0 +1,39 @@
+{
+  "title": {
+    "en": "Send raw MQTT message (developer)"
+  },
+  "titleFormatted": {
+    "en": "Send raw message types [[types]] with body [[body]]"
+  },
+  "hint": {
+    "en": "Developer tool. Sends one message per type (comma separated), 1 second apart, with the JSON body (or empty for null). Enable debug logging on the device to see replies."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=jackery"
+    },
+    {
+      "name": "types",
+      "type": "text",
+      "title": {
+        "en": "Types"
+      },
+      "placeholder": {
+        "en": "3,4,5"
+      }
+    },
+    {
+      "name": "body",
+      "type": "text",
+      "title": {
+        "en": "Body JSON"
+      },
+      "required": false,
+      "placeholder": {
+        "en": "{}"
+      }
+    }
+  ]
+}

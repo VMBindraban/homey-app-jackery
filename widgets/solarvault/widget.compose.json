@@ -1,0 +1,14 @@
+{
+  "name": { "en": "SolarVault" },
+  "height": 170,
+  "settings": [
+    {
+      "id": "device",
+      "type": "autocomplete",
+      "title": { "en": "SolarVault" }
+    }
+  ],
+  "api": {
+    "getState": { "method": "GET", "path": "/state" }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "title": {
+    "en": "Set discharge limit"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=jackery"
+    },
+    {
+      "name": "limit",
+      "type": "number",
+      "min": 5,
+      "max": 49,
+      "step": 1,
+      "title": {
+        "en": "Limit (%)"
+      }
+    }
+  ],
+  "titleFormatted": {
+    "en": "Set discharge limit to [[limit]]%"
+  }
+}

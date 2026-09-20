@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+  <style>
+    .homey-form-group { margin-bottom: 16px; }
+    .status { margin-top: 12px; min-height: 20px; }
+  </style>
+</head>
+<body>
+  <header class="homey-header">
+    <h1 class="homey-title">Jackery SolarVault MQTT</h1>
+    <p class="homey-subtitle">Global MQTT connection settings used by all SolarVault devices.</p>
+  </header>
+
+  <fieldset class="homey-form-fieldset">
+    <legend class="homey-form-legend">MQTT broker</legend>
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="host">Host / IP address</label>
+      <input class="homey-form-input" id="host" type="text" autocomplete="off">
+    </div>
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="port">Port</label>
+      <input class="homey-form-input" id="port" type="number" min="1" max="65535" value="1883">
+    </div>
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="username">Username</label>
+      <input class="homey-form-input" id="username" type="text" autocomplete="off">
+    </div>
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="password">Password</label>
+      <input class="homey-form-input" id="password" type="password" autocomplete="new-password">
+    </div>
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="prefix">MQTT topic prefix</label>
+      <input class="homey-form-input" id="prefix" type="text" autocomplete="off" value="hb">
+    </div>
+  </fieldset>
+
+  <button class="homey-button-primary-full" id="save">Save changes</button>
+  <div class="status" id="status"></div>
+
+  <script type="text/javascript">
+    function onHomeyReady(Homey) {
+      const ids = ['host', 'port', 'username', 'password', 'prefix'];
+      Homey.ready();
+
+      Homey.get(function(err, settings) {
+        if (err) return Homey.alert(err);
+        settings = settings || {};
+        ids.forEach(function(id) {
+          if (settings[id] !== undefined && settings[id] !== null) {
+            document.getElementById(id).value = settings[id];
+          }
+        });
+      });
+
+      document.getElementById('save').addEventListener('click', function() {
+        const values = {};
+        ids.forEach(function(id) { values[id] = document.getElementById(id).value; });
+        values.port = Number(values.port || 1883);
+
+        let remaining = ids.length;
+        let failed = false;
+        ids.forEach(function(id) {
+          Homey.set(id, values[id], function(err) {
+            if (err && !failed) {
+              failed = true;
+              Homey.alert(err);
+            }
+            remaining--;
+            if (remaining === 0 && !failed) {
+              const status = document.getElementById('status');
+              status.textContent = 'Saved. Connected SolarVault devices will reconnect automatically.';
+            }
+          });
+        });
+      });
+    }
+  </script>
+</body>
+</html>

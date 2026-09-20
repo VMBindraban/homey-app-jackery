@@ -1,0 +1,15 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Smart meter power"
+  },
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "W"
+  },
+  "decimals": 0,
+  "icon": "/assets/capabilities/meter.svg",
+  "uiComponent": "sensor",
+  "insights": true
+}

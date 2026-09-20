@@ -1,0 +1,47 @@
+{
+  "id": "com.codedesk.jackery",
+  "version": "1.0.0",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "runtime": "nodejs",
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Jackery"
+  },
+  "description": {
+    "en": "Monitor and control your Jackery SolarVault home battery over MQTT"
+  },
+  "category": [
+    "energy"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "V Bindraban",
+    "email": "homey@bindraban.dev"
+  },
+  "brandColor": "#F47920",
+  "support": "mailto:homey@bindraban.dev",
+  "tags": {
+    "en": [
+      "jackery",
+      "solarvault",
+      "battery",
+      "home battery",
+      "solar",
+      "mqtt",
+      "energy"
+    ]
+  },
+  "source": "https://github.com/VMBindraban/homey-app-jackery",
+  "homepage": "https://github.com/VMBindraban/homey-app-jackery",
+  "bugs": {
+    "url": "https://github.com/VMBindraban/homey-app-jackery/issues"
+  }
+}
